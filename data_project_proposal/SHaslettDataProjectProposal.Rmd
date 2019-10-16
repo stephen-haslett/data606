@@ -1,0 +1,72 @@
+---
+title: "Data 606 Data Project Proposal"
+author: "Stephen Haslett"
+date: "10/14/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Research question 
+
+Which college majors provide the highest return on investment?
+
+
+
+### Cases 
+
+There are 174 cases, each of which represents a college major.
+
+
+
+### Data collection 
+
+The original data was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey (ACS). FiveThirtyEight (https://fivethirtyeight.com) used this data to construct a new dataset that acted as the factual foundation for their "The Economic Guide To Picking A College Major" (https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major) story. This data project will utilize FiveThirtyEight's version of the data.   
+
+
+
+### Type of study 
+
+This is an observational study examing college majors and their relation to employment and earnings.
+
+
+
+### Data Source 
+
+The dataset was created byFiveThirtyEight and can be found here - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv. The set was constructed with data from the "American Community Survey 2010-2012 Public Use Microdata Series" (https://www.census.gov/programs-surveys/acs/data/pums.html).
+
+
+
+### Dependent Variable
+
+**What is the response variable? Is it quantitative or qualitative?**
+
+The response variable in this analysis is the qualitative variable "Major_category".
+
+
+
+### Independent Variable
+
+The independent variables in this analysis are "Major_category", which is qualitative, and "Median", which is quantitative.
+
+
+
+
+### Relevant summary statistics 
+
+**Data Sample**
+
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+csv = "https://raw.githubusercontent.com/fivethirtyeight/data/master/college-majors/all-ages.csv"
+college_majors <- read.csv(file = csv, header = TRUE)
+
+head(college_majors) %>% kable() %>% kable_styling(bootstrap_options = c('striped', 'bordered')) %>%
+row_spec(1:6, color = "black")
+```
