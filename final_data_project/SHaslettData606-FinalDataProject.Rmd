@@ -14,6 +14,8 @@ library(tidyverse)
 library(knitr)
 library(kableExtra)
 library(stringr)
+library(DT)
+library(tools)
 ```
 
 ### Part 1 - Introduction
@@ -31,24 +33,46 @@ library(stringr)
 3. Employment Data for All Graduates - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv
 
 
+### Salary Increase by Major dataset.
+
 ```{r, message=FALSE, warning=FALSE}
 category_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/degrees-that-pay-back.csv'
 salary_by_major <- read.csv(url(category_csv), header = TRUE)
-head(salary_by_major)
+
+datatable(salary_by_major)
 ```
 
+
+
+### Employment Data for Recent Graduates dataset.
 
 ```{r, message=FALSE, warning=FALSE}
 recent_grads_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
 recent_grads_employment <- read.csv(url(recent_grads_csv), header = TRUE)
-head(recent_grads_employment)
+
+# In order to make Major titles uniform across all datasets, we convert titles to title case,
+# and convert instances of the word 'and' to ampersands.
+recent_grads_employment$Major <- tolower(recent_grads_employment$Major)
+recent_grads_employment$Major <- toTitleCase(recent_grads_employment$Major)
+recent_grads_employment$Major <- gsub(" and "," & ", recent_grads_employment$Major)
+
+datatable(recent_grads_employment)
 ```
 
+
+
+### Employment Data for All Graduates dataset.
 
 ```{r, message=FALSE, warning=FALSE}
 grad_employment_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/all-ages.csv'
 all_grads_employment <- read.csv(url(grad_employment_csv), header = TRUE)
-head(all_grads_employment)
+
+# Convert Major titles to title case, and convert instances of the word 'and' to ampersands.
+all_grads_employment$Major <- tolower(all_grads_employment$Major)
+all_grads_employment$Major <- toTitleCase(all_grads_employment$Major)
+all_grads_employment$Major <- as.character(gsub(" and "," & ", all_grads_employment$Major))
+
+datatable(all_grads_employment)
 ```
 
 
