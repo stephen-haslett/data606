@@ -13,12 +13,32 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(stringr)
 ```
 
 ### Part 1 - Introduction
 
 
 ### Part 2 - Data
+```{r, message=FALSE, warning=FALSE}
+category_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/degrees-that-pay-back.csv'
+salary_by_major_category <- read.csv(url(category_csv), header = TRUE)
+head(salary_by_degree)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+recent_grads_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
+recent_graduates <- read.csv(url(recent_grads_csv), header = TRUE)
+head(recent_graduates)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+grad_employment_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
+graduate_employment <- read.csv(url(grad_employment_csv), header = TRUE)
+head(graduate_employment)
+```
 
 
 ### Part 3 - Exploratory data analysis
