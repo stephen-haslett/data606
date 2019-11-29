@@ -20,24 +20,35 @@ library(stringr)
 
 
 ### Part 2 - Data
+
+**To answer my research question, I will use 3 seperate datasets. One of the datasets was collected from Kaggle, and the other 2 were collected from FiveThirtyEight.**
+**The datasets can be found at the following locations:**
+
+1. Salary Increase by Major - https://www.kaggle.com/wsj/college-salaries/version/1#degrees-that-pay-back.csv
+
+2. Employment Data for Recent Graduates - https://github.com/fivethirtyeight/data/blob/master/college-majors/recent-grads.csv
+
+3. Employment Data for All Graduates - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv
+
+
 ```{r, message=FALSE, warning=FALSE}
 category_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/degrees-that-pay-back.csv'
-salary_by_major_category <- read.csv(url(category_csv), header = TRUE)
-head(salary_by_degree)
+salary_by_major <- read.csv(url(category_csv), header = TRUE)
+head(salary_by_major)
 ```
 
 
 ```{r, message=FALSE, warning=FALSE}
 recent_grads_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
-recent_graduates <- read.csv(url(recent_grads_csv), header = TRUE)
-head(recent_graduates)
+recent_grads_employment <- read.csv(url(recent_grads_csv), header = TRUE)
+head(recent_grads_employment)
 ```
 
 
 ```{r, message=FALSE, warning=FALSE}
-grad_employment_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
-graduate_employment <- read.csv(url(grad_employment_csv), header = TRUE)
-head(graduate_employment)
+grad_employment_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/all-ages.csv'
+all_grads_employment <- read.csv(url(grad_employment_csv), header = TRUE)
+head(all_grads_employment)
 ```
 
 
