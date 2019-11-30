@@ -44,6 +44,7 @@ datatable(salary_by_major)
 
 
 
+
 ### Employment Data for Recent Graduates dataset.
 
 ```{r, message=FALSE, warning=FALSE}
@@ -58,7 +59,6 @@ recent_grads_employment$Major <- gsub(" and "," & ", recent_grads_employment$Maj
 
 datatable(recent_grads_employment)
 ```
-
 
 
 ### Employment Data for All Graduates dataset.
@@ -78,6 +78,23 @@ datatable(all_grads_employment)
 
 ### Part 3 - Exploratory data analysis
 
+#### Median income statistics
+```{r, message=FALSE, warning=FALSE}
+summary(all_grads_employment$Median)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+median_salary_plot <- ggplot(all_grads_employment, aes(x = Median)) +
+    geom_histogram(binwidth = 10000, color = "#FFFFFF", fill = "#4CAF50") +
+    labs(title = "Median Income for All Degree Categories",
+         x = "Median Income",
+         y = 'Frequency') +
+    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+    theme(panel.background = element_rect(fill = '#FFFFFF'))
+
+median_salary_plot
+```
 
 ### Part 4 - Inference
 
