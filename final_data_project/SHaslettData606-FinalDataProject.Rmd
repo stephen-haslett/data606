@@ -44,7 +44,6 @@ datatable(salary_by_major)
 
 
 
-
 ### Employment Data for Recent Graduates dataset.
 
 ```{r, message=FALSE, warning=FALSE}
@@ -76,24 +75,58 @@ datatable(all_grads_employment)
 ```
 
 
+
 ### Part 3 - Exploratory data analysis
 
-#### Median income statistics
+
+#### Median income summary
 ```{r, message=FALSE, warning=FALSE}
 summary(all_grads_employment$Median)
 ```
 
 
 ```{r, message=FALSE, warning=FALSE}
-median_salary_plot <- ggplot(all_grads_employment, aes(x = Median)) +
+median_income_plot <- ggplot(all_grads_employment, aes(x = Median)) +
     geom_histogram(binwidth = 10000, color = "#FFFFFF", fill = "#4CAF50") +
-    labs(title = "Median Income for All Degree Categories",
+    labs(title = "Median Income for All Majors",
          x = "Median Income",
          y = 'Frequency') +
     theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
     theme(panel.background = element_rect(fill = '#FFFFFF'))
 
-median_salary_plot
+median_income_plot
+```
+
+
+#### Median income by major
+
+```{r, message=FALSE, warning=FALSE}
+highest_income_by_major <- top_n(all_grads_employment, 20, Median)
+highest_income_by_major_plot <- ggplot(highest_income_by_major, aes(x = reorder(Major, - Median), y = Median)) +
+   geom_bar(stat = 'identity', fill = '#01BEFE') +
+    labs(title = '20 Highest Paying Majors',
+         x = 'Major',
+         y = 'Median Income') +
+    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+    theme(panel.background = element_rect(fill = '#FFFFFF'))
+
+highest_income_by_major_plot
+```
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+lowest_income_by_major <- top_n(all_grads_employment, -20, Median)
+lowest_income_by_major_plot <- ggplot(lowest_income_by_major, aes(x = reorder(Major, + Median), y = Median)) +
+   geom_bar(stat = 'identity', fill = '#800080') +
+    labs(title = '20 Lowest Paying Majors',
+         x = 'Major',
+         y = 'Median Income') +
+    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+    theme(panel.background = element_rect(fill = '#FFFFFF'))
+
+lowest_income_by_major_plot
 ```
 
 ### Part 4 - Inference
