@@ -34,10 +34,14 @@ The original data was collected by the U.S. Census Bureau as part of the 2010-20
 **The dataset can be found at the following location: https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv **
 
 #### Cases
-There are 173 cases.
+There are 173 cases in this study. Each case represents an undergraduate or graduate college major offered by a US college.
 
 #### Variables
-**Major - 
+**Major:** Qualitative response variable.
+
+**Unemployment Rate:** Quantitative independent variable.
+
+**Median Income:** Quantitative independent variable.
 
 #### Type of study
 This is an observational study examing college majors and their relation to employment and earnings.
@@ -59,6 +63,11 @@ datatable(all_grads_employment)
 
 ### Part 3 - Exploratory data analysis
 
+#### Unemployment rate summary for all majors.
+```{r, message=FALSE, warning=FALSE}
+summary(all_grads_employment$Unemployment_rate)
+```
+
 
 #### Highest Unemployment rates by major.
 ```{r, message=FALSE, warning=FALSE}
@@ -73,6 +82,8 @@ unemployment_by_major_plot <- ggplot(unemployment_by_major, aes(x = reorder(Majo
 
 unemployment_by_major_plot
 ```
+
+The above bar graph shows the 20 highest unemployment rates by major subject. The majorty of majors with high unemployment rates are Liberal Arts related majors. However, It is surprising to see Computer Programming & Data Processing, and Biomedical Engineering in the results. I believe we can attribute this to the fact that there were only 170 cases in the study. This assumption is consolidated by the fact that the unemployment rate for all majors in the bar chart centers around 0.08, with little fluctuation.
 
 
 #### Lowest Unemployment rates by major.
@@ -89,6 +100,7 @@ lowest_unemployment_by_major_plot <- ggplot(lowest_unemployment_by_major, aes(x 
 lowest_unemployment_by_major_plot
 ```
 
+The above bar graph shows the 20 lowest unemployment rates by major subject. I am not surprised that most of the results are for STEM related majors with the exception of agriculture, education, and health related majors. This would make sense as the demand for these particular skill sets is fairly constant.
 
 #### Median income summary
 ```{r, message=FALSE, warning=FALSE}
@@ -108,6 +120,8 @@ median_income_plot <- ggplot(all_grads_employment, aes(x = Median)) +
 median_income_plot
 ```
 
+The distribution of income displays a right-skewed distribution. This can be atrributed to the fact that fewer job opportunites exist as income increases. We can also observe from the above bar graph that the majority of majors in the study are tied with a median income of $50,000.
+
 
 #### Median income by major
 
@@ -124,11 +138,11 @@ highest_income_by_major_plot <- ggplot(highest_income_by_major, aes(x = reorder(
 highest_income_by_major_plot
 ```
 
-
+The above bar graph shows the 20 highest salaries by major subject. It is no surprise that the top 20 median salaries are tied with Science and Engineering related majors. Based on this information, it would seem that STEM related majors provide the higest return on investment.
 
 
 ```{r, message=FALSE, warning=FALSE}
-lowest_income_by_major <- top_n(all_grads_employment, -20, Median)
+lowest_income_by_major <- top_n(all_grads_employment, - 20, Median)
 lowest_income_by_major_plot <- ggplot(lowest_income_by_major, aes(x = reorder(Major, + Median), y = Median)) +
    geom_bar(stat = 'identity', fill = '#800080') +
     labs(title = 'Lowest Median Incomes by Major',
@@ -139,6 +153,8 @@ lowest_income_by_major_plot <- ggplot(lowest_income_by_major, aes(x = reorder(Ma
 
 lowest_income_by_major_plot
 ```
+
+The above bar chart show the 20 lowest salaries by major subject. Again, It is no surprise that the majority of low salaries are tied to Liberal Arts related majors. However, I was surprised that Neuroscience reported the lowest median income. It is possible that this is due to the small amount of cases in the study (173), or the region that the responses were gathered from (i.e. salaries in NYC are higher than those in Milwaukee).
 
 ### Part 4 - Inference
 
