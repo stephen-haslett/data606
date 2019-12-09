@@ -16,6 +16,9 @@ library(kableExtra)
 library(stringr)
 library(DT)
 library(tools)
+#Check if needed
+library(ggplot2)
+library(ggthemes)
 ```
 
 ### Part 1 - Introduction
@@ -23,14 +26,9 @@ library(tools)
 
 ### Part 2 - Data
 
-**To answer my research question, I will use 3 seperate datasets. One of the datasets was collected from Kaggle, and the other 2 were collected from FiveThirtyEight.**
-**The datasets can be found at the following locations:**
+**The original data was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey (ACS). FiveThirtyEight (https://fivethirtyeight.com) used this data to construct a new dataset that acted as the factual foundation for their “The Economic Guide To Picking A College Major” (https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major) story. This data project will utilize FiveThirtyEight’s version of the data.**
 
-1. Salary Increase by Major - https://www.kaggle.com/wsj/college-salaries/version/1#degrees-that-pay-back.csv
-
-2. Employment Data for Recent Graduates - https://github.com/fivethirtyeight/data/blob/master/college-majors/recent-grads.csv
-
-3. Employment Data for All Graduates - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv
+**The dataset can be found at the following location - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv**
 
 
 ### Salary Increase by Major dataset.
@@ -74,9 +72,37 @@ all_grads_employment$Major <- as.character(gsub(" and "," & ", all_grads_employm
 datatable(all_grads_employment)
 ```
 
-
-
 ### Part 3 - Exploratory data analysis
+
+
+#### Highest Unemployment rates by major.
+```{r, message=FALSE, warning=FALSE}
+unemployment_by_major <- top_n(all_grads_employment, 20, Unemployment_rate)
+unemployment_by_major_plot <- ggplot(unemployment_by_major, aes(x = reorder(Major, - Unemployment_rate), y = Unemployment_rate)) +
+   geom_bar(stat = 'identity', fill = 'red') +
+    labs(title = 'Highest Unemployment Rates by Major',
+         x = 'Major',
+         y = 'Unemployment Rate') +
+    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+    theme(panel.background = element_rect(fill = '#FFFFFF'))
+
+unemployment_by_major_plot
+```
+
+
+#### Lowest Unemployment rates by major.
+```{r, message=FALSE, warning=FALSE}
+lowest_unemployment_by_major <- top_n(all_grads_employment, - 20, Unemployment_rate)
+lowest_unemployment_by_major_plot <- ggplot(lowest_unemployment_by_major, aes(x = reorder(Major, + Unemployment_rate), y = Unemployment_rate)) +
+   geom_bar(stat = 'identity', fill = 'blue') +
+    labs(title = 'Lowest Unemployment Rates by Major',
+         x = 'Major',
+         y = 'Unemployment Rate') +
+    theme(axis.text.x = element_text(angle = 70, hjust = 1)) +
+    theme(panel.background = element_rect(fill = '#FFFFFF'))
+
+lowest_unemployment_by_major_plot
+```
 
 
 #### Median income summary
@@ -104,7 +130,7 @@ median_income_plot
 highest_income_by_major <- top_n(all_grads_employment, 20, Median)
 highest_income_by_major_plot <- ggplot(highest_income_by_major, aes(x = reorder(Major, - Median), y = Median)) +
    geom_bar(stat = 'identity', fill = '#01BEFE') +
-    labs(title = '20 Highest Paying Majors',
+    labs(title = 'Highest Median Incomes by Major',
          x = 'Major',
          y = 'Median Income') +
     theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
@@ -120,7 +146,7 @@ highest_income_by_major_plot
 lowest_income_by_major <- top_n(all_grads_employment, -20, Median)
 lowest_income_by_major_plot <- ggplot(lowest_income_by_major, aes(x = reorder(Major, + Median), y = Median)) +
    geom_bar(stat = 'identity', fill = '#800080') +
-    labs(title = '20 Lowest Paying Majors',
+    labs(title = 'Lowest Median Incomes by Major',
          x = 'Major',
          y = 'Median Income') +
     theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
