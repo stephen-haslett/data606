@@ -16,47 +16,31 @@ library(kableExtra)
 library(stringr)
 library(DT)
 library(tools)
-#Check if needed
-library(ggplot2)
-library(ggthemes)
 ```
 
 ### Part 1 - Introduction
 
+#### Which college majors provide the highest return on investment?
+College is a pricey business. Yearly tuition fees for private four year US colleges average out at $35,830, while public college out-of-state fees cost on average $26,290 per year.
+*(source: https://www.topuniversities.com/student-info/student-finance/how-much-does-it-cost-study-us )* Once living and other expenses are factored in, going to college is a sizable investment, and one that deserves careful consideration before parting with your money.
+
+Considering that it can take up to 30 years to pay off your student debt, it is important to pick a major that leads to both employment, and a large enough salary to repay your debts without struggling to make ends meet. This investigtation aims to enable prospective students to make wise major choices based on employment rates, and salary medians.
 
 ### Part 2 - Data
 
-**The original data was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey (ACS). FiveThirtyEight (https://fivethirtyeight.com) used this data to construct a new dataset that acted as the factual foundation for their “The Economic Guide To Picking A College Major” (https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major) story. This data project will utilize FiveThirtyEight’s version of the data.**
+#### Data Collection
+The original data was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey (ACS). FiveThirtyEight (https://fivethirtyeight.com) used this data to construct a new dataset that acted as the factual foundation for their “The Economic Guide To Picking A College Major” (https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major) story. This data project will utilize FiveThirtyEight’s version of the data.
 
-**The dataset can be found at the following location - https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv**
+**The dataset can be found at the following location: https://github.com/fivethirtyeight/data/blob/master/college-majors/all-ages.csv **
 
+#### Cases
+There are 173 cases.
 
-### Salary Increase by Major dataset.
+#### Variables
+**Major - 
 
-```{r, message=FALSE, warning=FALSE}
-category_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/degrees-that-pay-back.csv'
-salary_by_major <- read.csv(url(category_csv), header = TRUE)
-
-datatable(salary_by_major)
-```
-
-
-
-### Employment Data for Recent Graduates dataset.
-
-```{r, message=FALSE, warning=FALSE}
-recent_grads_csv <- 'https://raw.githubusercontent.com/stephen-haslett/data606/data606-final-project/final_data_project/recent-grads.csv'
-recent_grads_employment <- read.csv(url(recent_grads_csv), header = TRUE)
-
-# In order to make Major titles uniform across all datasets, we convert titles to title case,
-# and convert instances of the word 'and' to ampersands.
-recent_grads_employment$Major <- tolower(recent_grads_employment$Major)
-recent_grads_employment$Major <- toTitleCase(recent_grads_employment$Major)
-recent_grads_employment$Major <- gsub(" and "," & ", recent_grads_employment$Major)
-
-datatable(recent_grads_employment)
-```
-
+#### Type of study
+This is an observational study examing college majors and their relation to employment and earnings.
 
 ### Employment Data for All Graduates dataset.
 
@@ -71,6 +55,7 @@ all_grads_employment$Major <- as.character(gsub(" and "," & ", all_grads_employm
 
 datatable(all_grads_employment)
 ```
+
 
 ### Part 3 - Exploratory data analysis
 
