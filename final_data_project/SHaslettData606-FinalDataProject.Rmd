@@ -24,7 +24,7 @@ library(tools)
 College is a pricey business. Yearly tuition fees for private four year US colleges average out at $35,830, while public college out-of-state fees cost on average $26,290 per year.
 *(source: https://www.topuniversities.com/student-info/student-finance/how-much-does-it-cost-study-us )* Once living and other expenses are factored in, going to college is a sizable investment, and one that deserves careful consideration before parting with your money.
 
-Considering that it can take up to 30 years to pay off your student debt, it is important to pick a major that leads to both employment, and a large enough salary to repay your debts without struggling to make ends meet. This investigtation aims to enable prospective students to make wise major choices based on employment rates, and salary medians.
+Considering that it can take up to 30 years to pay off your student debt, it is important to pick a major that leads to both employment, and a large enough salary to repay your debts without struggling to make ends meet. This investigation aims to enable prospective students to make wise major choices based on employment rates, and salary medians.
 
 ### Part 2 - Data
 
@@ -59,6 +59,7 @@ all_grads_employment$Major <- as.character(gsub(" and "," & ", all_grads_employm
 
 datatable(all_grads_employment)
 ```
+
 
 
 ### Part 3 - Exploratory data analysis
@@ -123,7 +124,7 @@ median_income_plot
 The distribution of income displays a right-skewed distribution. This can be atrributed to the fact that fewer job opportunites exist as income increases. We can also observe from the above bar graph that the majority of majors in the study are tied with a median income of $50,000.
 
 
-#### Median income by major
+#### Highest Median income by major.
 
 ```{r, message=FALSE, warning=FALSE}
 highest_income_by_major <- top_n(all_grads_employment, 20, Median)
@@ -141,6 +142,8 @@ highest_income_by_major_plot
 The above bar graph shows the 20 highest salaries by major subject. It is no surprise that the top 20 median salaries are tied with Science and Engineering related majors. Based on this information, it would seem that STEM related majors provide the higest return on investment.
 
 
+#### Lowest Median income by major.
+
 ```{r, message=FALSE, warning=FALSE}
 lowest_income_by_major <- top_n(all_grads_employment, - 20, Median)
 lowest_income_by_major_plot <- ggplot(lowest_income_by_major, aes(x = reorder(Major, + Median), y = Median)) +
@@ -156,7 +159,42 @@ lowest_income_by_major_plot
 
 The above bar chart show the 20 lowest salaries by major subject. Again, It is no surprise that the majority of low salaries are tied to Liberal Arts related majors. However, I was surprised that Neuroscience reported the lowest median income. It is possible that this is due to the small amount of cases in the study (173), or the region that the responses were gathered from (i.e. salaries in NYC are higher than those in Milwaukee).
 
+
+
 ### Part 4 - Inference
+
+
+#### Hypothesis
+
+**H0:** _Incomes do not differ between majors._
+
+**HA:** _Incomes do differ between majors._
+
+
+#### Satisfying conditions for inference:
+
+1. Independence of cases:
+
+_Each observation is independant as it is unlikely that the income for 1 major has an effect on that of another._
+
+2. The sample size is greater than 30:
+
+_There are 173 cases in this study, so this condition has been met._
+
+3. The samples are random.
+
+_The data for this study was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey. The fact that the data wes collected for the 2010-2012 American Community Survey would suggest that the dataset represents a random sampling of the US population. We can assume that this condition has been met._
+
+4. The data follows a normal distribution.
+
+_The distribution is close to normal with outliers at both ends of the line. This condition has been met._
+
+```{r, message=FALSE, warning=FALSE}
+qqnorm(all_grads_employment$Median)
+qqline(all_grads_employment$Median)
+```
+
+**Given that the conditions for inference have been met, We can reject the Null hypothesis (_Incomes do not differ between majors_), and accept the Alternative hypothesis (_Incomes do differ between majors). In other words, The major you decide to study has a significant influence over your potential earnings after graduation, so pick wisely.**
 
 
 ### Part 5 - Conclusion
