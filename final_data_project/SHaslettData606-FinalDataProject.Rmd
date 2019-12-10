@@ -1,8 +1,13 @@
 ---
-title: "DATA 606 Final Data Project"
+title: "Which College Majors Provide The Highest Return on Investment?"
 author: "Stephen Haslett"
 date: "11/29/2019"
-output: html_document
+output:
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github
+    toc: yes
+subtitle: "DATA 606 Final Data Project"
 ---
 
 ```{r setup, include=FALSE}
@@ -16,6 +21,7 @@ library(kableExtra)
 library(stringr)
 library(DT)
 library(tools)
+library(prettydoc)
 ```
 
 ### Part 1 - Introduction
@@ -84,7 +90,7 @@ unemployment_by_major_plot <- ggplot(unemployment_by_major, aes(x = reorder(Majo
 unemployment_by_major_plot
 ```
 
-The above bar graph shows the 20 highest unemployment rates by major subject. The majorty of majors with high unemployment rates are Liberal Arts related majors. However, It is surprising to see Computer Programming & Data Processing, and Biomedical Engineering in the results. I believe we can attribute this to the fact that there were only 170 cases in the study. This assumption is consolidated by the fact that the unemployment rate for all majors in the bar chart centers around 0.08, with little fluctuation.
+The above bar graph shows the 20 highest unemployment rates by major subject. The majorty of majors with high unemployment rates are Liberal Arts related majors. However, It is surprising to see Computer Programming & Data Processing, and Biomedical Engineering in the results. I believe we can attribute this to the fact that there were only 170 cases in the study. This assumption is further consolidated by the fact that the unemployment rate for all majors in the bar chart centers around 0.08, with little fluctuation.
 
 
 #### Lowest Unemployment rates by major.
@@ -173,28 +179,36 @@ The above bar chart show the 20 lowest salaries by major subject. Again, It is n
 
 #### Satisfying conditions for inference:
 
-1. Independence of cases:
+1. **Independence of cases**:
 
-_Each observation is independant as it is unlikely that the income for 1 major has an effect on that of another._
+    _Each observation is independant as it is unlikely that the income for 1 major has an effect on that of another._
 
-2. The sample size is greater than 30:
+2. **The sample size is greater than 30**:
 
-_There are 173 cases in this study, so this condition has been met._
+    _There are 173 cases in this study, so this condition has been met._
 
-3. The samples are random.
+3. **The samples are random**:
 
-_The data for this study was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey. The fact that the data wes collected for the 2010-2012 American Community Survey would suggest that the dataset represents a random sampling of the US population. We can assume that this condition has been met._
+    _The data for this study was collected by the U.S. Census Bureau as part of the 2010-2012 American Community Survey. The fact that the data wes collected for the 2010-2012 American      Community Survey would suggest that the dataset represents a random sampling of the US population. We can assume that this condition has been met._
 
-4. The data follows a normal distribution.
+4. **The data follows a normal distribution**:
 
-_The distribution is close to normal with outliers at both ends of the line. This condition has been met._
+    _The distribution is close to normal with outliers at both ends of the line. This condition has been met._
 
 ```{r, message=FALSE, warning=FALSE}
 qqnorm(all_grads_employment$Median)
 qqline(all_grads_employment$Median)
 ```
 
-**Given that the conditions for inference have been met, We can reject the Null hypothesis (_Incomes do not differ between majors_), and accept the Alternative hypothesis (_Incomes do differ between majors). In other words, The major you decide to study has a significant influence over your potential earnings after graduation, so pick wisely.**
+Given that the conditions for inference have been met, We can reject the Null hypothesis (_Incomes do not differ between majors_), and accept the Alternative hypothesis (_Incomes do differ between majors_). In other words, The major you decide to study has a significant influence over your potential earnings after graduation, so pick wisely.
 
 
 ### Part 5 - Conclusion
+
+From our initial research question: "_Which college majors provide the highest return on investment?_" we can conclude as follows:
+
+The statistical analysis and hypothesis testing contained in this study suggest that the major a prospective student decides to study, is a significant determinant in their chances of employment after graduation, and their potential post-graduation earnings. When it comes to yearly income, it appears that STEM related majors lead to higher salaries, whilst Liberal Arts majors lead to lower salaries.
+
+The same is true for the chances of employment after graduation. With the exception of agriculture, education, and health related majors, STEM Majors appear to be tied with low post graduation unemployment rates. The fact that agriculture, education, and health majors are included in these results, is most likely due to the fact that these are, and always will be, in demand careers. People will always get sick, and will always need to eat.
+
+So to directly answer our research question "Which college majors provide the highest return on investment?"; STEM majors provide the highest return on investment.
